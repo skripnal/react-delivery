@@ -1,0 +1,23 @@
+.container {
+    position: absolute;
+    top: 150%;
+    left: -80%;
+    background-color: white;
+    box-shadow: 0 5px 15px #00000017;
+    list-style: none;
+    padding: 0.625rem 0;
+    color: black;
+    border-radius: 0.625rem;
+    cursor: auto;
+
+    li {
+        padding: 0.625rem 1.5625rem 0.625rem 0.9375rem;
+        transition: all 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            color: #fe5f1e;
+            background-color: #fe5f1e0d;
+        }
+    }
+}

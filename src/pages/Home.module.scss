@@ -1,0 +1,14 @@
+.container {
+    padding: 0 3.75rem;
+
+    .title {
+        margin-bottom: 1.5rem;
+    }
+
+    .categorySort {
+        padding: 2rem 0;
+        display: grid;
+        gap: 1.25rem;
+        grid-template-columns: 4fr 1fr;
+    }
+}

@@ -1,0 +1,77 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3.125rem 2.375rem 1.875rem 3.75rem;
+    margin-left: 0.75rem;
+    border-bottom: 0.0625rem solid #f6f6f6;
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 0.9375rem;
+        img {
+            width: 3.125rem;
+        }
+
+        div {
+            p {
+                color: #7b7b7b;
+            }
+        }
+    }
+
+    .search {
+        height: fit-content;
+        margin-left: 3rem;
+        font-size: 1.5rem;
+        position: relative;
+
+        .input {
+            font-size: 1.125rem;
+            border: 1px solid #7b7b7b;
+            padding: 0.5rem 3rem 0.5rem 3rem;
+            border-radius: 0.625rem;
+            height: 100%;
+        }
+
+        .searchIcon {
+            position: absolute;
+            height: 100%;
+            left: 5%;
+            cursor: auto;
+            color: #7b7b7b;
+        }
+
+        .clearIcon {
+            position: absolute;
+            height: 100%;
+            right: 5%;
+            cursor: pointer;
+            color: #7b7b7b;
+        }
+    }
+
+    .cart {
+        display: flex;
+        align-items: center;
+        background-color: #fe5f1e;
+        padding: 0.9375rem 1.25rem;
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+
+        & > p {
+            padding-right: 0.8125rem;
+            border-right: 0.0625rem solid #ffffff40;
+        }
+
+        & > div {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3125rem;
+            margin-left: 0.8125rem;
+        }
+    }
+}

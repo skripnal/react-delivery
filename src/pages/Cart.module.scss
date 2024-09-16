@@ -1,0 +1,9 @@
+.container {
+    max-width: 51.25rem;
+    margin: 5.9375rem auto 0;
+
+    @media (width<=56.25rem) {
+        max-width: unset;
+        padding: 0 1rem;
+    }
+}

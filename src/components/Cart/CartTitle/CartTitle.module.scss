@@ -1,0 +1,28 @@
+.root {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.875rem;
+
+    h1 {
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .cartIcon {
+        font-size: 2.5rem;
+    }
+
+    button {
+        font-size: 1rem;
+        background-color: unset;
+        border: unset;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #b6b6b6;
+        cursor: pointer;
+    }
+}

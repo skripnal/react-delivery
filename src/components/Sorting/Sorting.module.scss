@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+
+    div {
+        font-weight: 500;
+
+        span {
+            position: relative;
+            font-weight: 400;
+            color: #fe5f1e;
+            border-bottom: 0.0625rem dotted #fe5f1e;
+            cursor: pointer;
+        }
+    }
+}

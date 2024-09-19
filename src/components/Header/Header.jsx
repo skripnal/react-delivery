@@ -11,8 +11,12 @@ import debounce from 'lodash.debounce'
 import { setSearchBy } from '../../redux/slices/filterSlice'
 
 const Header = () => {
-    const price = useSelector((state) => state.cartSlice.totalPrice)
-    const count = useSelector((state) => state.cartSlice.count)
+    const { items, totalPrice } = useSelector((state) => state.cartSlice)
+
+    const totalCount = items.reduce((sum, item) => {
+        return sum + item.count
+    }, 0)
+
     const dispatch = useDispatch()
 
     const inputRef = useRef()
@@ -71,10 +75,10 @@ const Header = () => {
             </div>
             <Link to={'/cart'}>
                 <div className={styles.cart}>
-                    <p>{price.toFixed(2)} $</p>
+                    <p>{totalPrice.toFixed(2)} $</p>
                     <div>
                         <TiShoppingCart />
-                        <p className={styles.count}>{count}</p>
+                        <p className={styles.count}>{totalCount}</p>
                     </div>
                 </div>
             </Link>

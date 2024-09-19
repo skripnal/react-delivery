@@ -1,28 +1,41 @@
 import { IoClose } from 'react-icons/io5'
 
 import styles from './CartItem.module.scss'
+import { useDispatch } from 'react-redux'
+import { addItem, minusItem, removeItem } from '../../../redux/slices/cartSlice'
 
-const CartItem = ({}) => {
+const CartItem = ({ id, title, price, imageUrl, type, size, count }) => {
+    const dispatch = useDispatch()
+
+    const onClickMinus = () => {
+        dispatch(minusItem({ id, type, size }))
+    }
+
+    const onClickPlus = () => {
+        dispatch(addItem({ id, type, size }))
+    }
+
+    const onRemoveItem = () => {
+        dispatch(removeItem({ id, type, size }))
+    }
+
     return (
         <div className={styles.root}>
             <div className={styles.itemInfo}>
-                <img
-                    src="https://img.freepik.com/free-photo/pizza-pizza-filled-with-tomatoes-salami-olives_140725-1200.jpg?t=st=1725543902~exp=1725547502~hmac=a70ff16104c0309362009253650cf9388591a93fc7dcd0b92676c0af6d775b9c&w=1480"
-                    alt=""
-                />
+                <img src={imageUrl} alt={'Photo of pizza ' + id} />
                 <div>
-                    <h2>Cheese pizza</h2>
-                    <p>some description</p>
+                    <h2>{title}</h2>
+                    <p>{`${type}, ${size}sm.`}</p>
                 </div>
             </div>
             <div className={styles.itemControls}>
                 <div className={styles.itemCounter}>
-                    <button>-</button>
-                    <p>2</p>
-                    <button>+</button>
+                    <button onClick={onClickMinus}>-</button>
+                    <p>{count}</p>
+                    <button onClick={onClickPlus}>+</button>
                 </div>
-                <p className={styles.price}>20$</p>
-                <button className={styles.deleteItem}>
+                <p className={styles.price}>{(price * count).toFixed(2)}$</p>
+                <button className={styles.deleteItem} onClick={onRemoveItem}>
                     <IoClose />
                 </button>
             </div>

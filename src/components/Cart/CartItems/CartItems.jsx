@@ -4,12 +4,12 @@ import CartItem from '../CartItem/CartItem'
 import styles from './CartItems.module.scss'
 
 const CartItems = () => {
-    const products = useSelector((state) => state.cartSlice.products)
-    //TODO: зробити нормальне відображення з перевіркою дублювання карточки
+    const items = useSelector((state) => state.cartSlice.items)
+
     return (
         <div className={styles.root}>
-            {products.map((item) => (
-                <CartItem />
+            {items.map((item) => (
+                <CartItem key={item.id} {...item} />
             ))}
         </div>
     )

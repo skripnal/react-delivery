@@ -1,22 +1,31 @@
 import { useState } from 'react'
 import styles from './PizzaCard.module.scss'
-import { useDispatch } from 'react-redux'
-import { addProduct } from '../../redux/slices/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem } from '../../redux/slices/cartSlice'
 
 const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
     const [curentType, setCurentType] = useState(types[0])
     const [curentSize, setCurentSize] = useState(sizes[0])
-    const [count, setCount] = useState(0)
 
     const dispatch = useDispatch()
 
+    const count = useSelector((state) =>
+        state.cartSlice.items
+            .filter((item) => item.id === id)
+            .reduce((sum, item) => {
+                return sum + item.count
+            }, 0)
+    )
+
     const addToCart = () => {
         dispatch(
-            //TODO: зробити кількість однакових товарів і генерацію id
-            addProduct({
-                product: { id, title, price, imageUrl, sizes, types },
-                selectedSize: curentSize,
-                selectedType: curentType,
+            addItem({
+                id,
+                title,
+                price,
+                imageUrl,
+                type: curentType,
+                size: curentSize,
             })
         )
     }
@@ -62,10 +71,10 @@ const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
                 </ul>
             </div>
             <div className={styles.order}>
-                <p>from {price.toFixed(2)} $</p>
+                <p>{price.toFixed(2)} $</p>
                 <button onClick={addToCart}>
                     <span>+</span> Add to cart
-                    {!!count && <span className={styles.counter}>{count}</span>}
+                    {!!count && <p className={styles.counter}>{count}</p>}
                 </button>
             </div>
         </div>

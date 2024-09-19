@@ -7,17 +7,20 @@ import styles from './CartTotal.module.scss'
 const CartTotal = () => {
     const navigate = useNavigate()
 
-    const price = useSelector((state) => state.cartSlice.totalPrice)
-    const count = useSelector((state) => state.cartSlice.count)
+    const { totalPrice, items } = useSelector((state) => state.cartSlice)
+
+    const totalCount = items.reduce((sum, item) => {
+        return sum + item.count
+    }, 0)
 
     return (
         <div className={styles.root}>
             <div className={styles.total}>
                 <p className={styles.counter}>
-                    Total pizzas: <span>{count}</span>
+                    Total pizzas: <span>{totalCount}</span>
                 </p>
                 <p className={styles.price}>
-                    total prise: <span>{price.toFixed(2)} $</span>
+                    total prise: <span>{totalPrice.toFixed(2)} $</span>
                 </p>
             </div>
             <div className={styles.controls}>

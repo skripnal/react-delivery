@@ -5,32 +5,31 @@ import Categories from '../components/Categories/Categories'
 import PizzaCardsWrapper from '../components/PizzaCardsWrapper/PizzaCardsWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { categoryList } from '../enums/data'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import qs from 'qs'
 import { useNavigate } from 'react-router-dom'
 import { setFilters } from '../redux/slices/filterSlice'
 
 const Home = () => {
-    const { category, sortBy } = useSelector((state) => state.filterSlice)
+    const { category, sortBy, order } = useSelector(
+        (state) => state.filterSlice
+    )
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+
+    const isMounted = useRef(false)
 
     useEffect(() => {
-        if (window.location.search) {
-            const params = qs.parse(window.location.search.substring(1))
-            dispatch(setFilters(params))
+        if (isMounted.current) {
+            const categoryid = category ? category : ''
+            const queryStr = qs.stringify({
+                category: categoryid,
+                sortBy,
+                order: 'desc',
+            })
+            navigate(`?${queryStr}`)
+            console.log(`?${queryStr}`)
         }
-    }, [])
-
-    useEffect(() => {
-        const categoryid = category ? category : ''
-        const queryStr = qs.stringify({
-            category: categoryid,
-            sortBy,
-            order: 'desc',
-        })
-        navigate(`?${queryStr}`)
-        console.log(`?${queryStr}`)
+        isMounted.current = true
     }, [category, sortBy])
 
     return (

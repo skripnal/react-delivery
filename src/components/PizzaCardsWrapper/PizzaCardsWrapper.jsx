@@ -1,21 +1,24 @@
 import styles from './PizzaCardsWrapper.module.scss'
 
 import PizzaCard from '../PizzaCard/PizzaCard'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Skeleton from '../PizzaCard/Skeleton'
+import qs from 'qs'
 
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setFilters } from '../../redux/slices/filterSlice'
 
 const PizzaCardsWrapper = () => {
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
-    const { category, sortBy, searchBy } = useSelector(
+    const { category, sortBy, searchBy, order } = useSelector(
         (state) => state.filterSlice
     )
+    const dispatch = useDispatch()
 
-    useEffect(() => {
+    function fetchPizzas() {
         setIsLoading(true)
 
         const categoryParam = category ? category : ''
@@ -29,7 +32,19 @@ const PizzaCardsWrapper = () => {
                 setIsLoading(false)
             })
             .catch((error) => console.log(error.message))
-    }, [category, sortBy, searchBy])
+    }
+
+    useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1))
+            dispatch(setFilters(params))
+            console.log(params)
+        }
+    }, [])
+
+    useEffect(() => {
+        fetchPizzas()
+    }, [category, sortBy, searchBy, order])
 
     return (
         <div className={styles.container}>

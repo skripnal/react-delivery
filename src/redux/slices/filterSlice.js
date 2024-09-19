@@ -4,7 +4,7 @@ const initialState = {
     category: 0,
     sortBy: 'popular',
     searchBy: '',
-    order: 'desc',
+    order: '',
 }
 
 export const filterSlice = createSlice({

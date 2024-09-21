@@ -22,7 +22,6 @@ const Header = () => {
     const inputRef = useRef()
 
     const [inputValue, setInputValue] = useState('')
-    const [reqInputVal, setReqInputVal] = useState('')
 
     const clearInput = () => {
         setInputValue('')

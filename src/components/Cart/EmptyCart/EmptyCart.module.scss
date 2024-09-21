@@ -1,0 +1,18 @@
+.wrapper {
+    text-align: center;
+
+    .title {
+    }
+
+    .subtitle {
+        margin: 0.625rem 0 1.25rem;
+        color: #828282;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 10px;
+        border: 1px solid #828282;
+    }
+}

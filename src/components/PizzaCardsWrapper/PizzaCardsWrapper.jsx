@@ -1,37 +1,31 @@
 import styles from './PizzaCardsWrapper.module.scss'
 
 import PizzaCard from '../PizzaCard/PizzaCard'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import Skeleton from '../PizzaCard/Skeleton'
 import qs from 'qs'
 
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilters } from '../../redux/slices/filterSlice'
+import {
+    fetchPizzas,
+    selectPizzaItems,
+    selectPizzaStatus,
+} from '../../redux/slices/pizzasSlice'
+import { useLocation } from 'react-router-dom'
 
 const PizzaCardsWrapper = () => {
-    const [items, setItems] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const items = useSelector(selectPizzaItems)
+    const status = useSelector(selectPizzaStatus)
 
     const { category, sortBy, searchBy, order } = useSelector(
         (state) => state.filterSlice
     )
     const dispatch = useDispatch()
 
-    function fetchPizzas() {
-        setIsLoading(true)
-
+    function getPizzas() {
         const categoryParam = category ? category : ''
-
-        axios
-            .get(
-                `https://66d9b41e4ad2f6b8ed55b736.mockapi.io/items?search=${searchBy}&category=${categoryParam}&sortBy=${sortBy}&order=desc`
-            )
-            .then((res) => {
-                setItems(res.data)
-                setIsLoading(false)
-            })
-            .catch((error) => console.log(error.message))
+        dispatch(fetchPizzas({ categoryParam, sortBy, searchBy }))
     }
 
     useEffect(() => {
@@ -43,14 +37,16 @@ const PizzaCardsWrapper = () => {
     }, [])
 
     useEffect(() => {
-        fetchPizzas()
+        getPizzas()
     }, [category, sortBy, searchBy, order])
 
     return (
         <div className={styles.container}>
-            {isLoading
-                ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-                : items.map((item) => <PizzaCard {...item} key={item.id} />)}
+            {status === 'loading' &&
+                [...new Array(6)].map((_, index) => <Skeleton key={index} />)}
+            {status === 'success' &&
+                items?.map((item) => <PizzaCard {...item} key={item.id} />)}
+            {status === 'error' && <div>Error</div>}
         </div>
     )
 }

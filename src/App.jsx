@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import { Route, Routes } from 'react-router-dom'
 import NotFound from './pages/NotFound'
 import Cart from './pages/Cart'
+import CardInfo from './pages/CardInfo'
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/pizzas/:id" element={<CardInfo />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>

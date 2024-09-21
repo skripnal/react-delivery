@@ -9,7 +9,7 @@ import { categoryList } from '../../enums/data'
 const Categories = () => {
     const category = useSelector((state) => state.filterSlice.category)
     const dispatch = useDispatch()
-
+    console.log('category render')
     return (
         <div className={styles.categories}>
             <ul>

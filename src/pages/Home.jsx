@@ -11,9 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import { setFilters } from '../redux/slices/filterSlice'
 
 const Home = () => {
-    const { category, sortBy, order } = useSelector(
-        (state) => state.filterSlice
-    )
+    const category = useSelector((state) => state.filterSlice.category)
+    const sortBy = useSelector((state) => state.filterSlice.sortBy)
     const navigate = useNavigate()
 
     const isMounted = useRef(false)

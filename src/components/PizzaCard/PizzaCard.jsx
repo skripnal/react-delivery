@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styles from './PizzaCard.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../../redux/slices/cartSlice'
+import { addItem, selectCartGroupItems } from '../../redux/slices/cartSlice'
+import { Link } from 'react-router-dom'
 
 const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
     const [curentType, setCurentType] = useState(types[0])
@@ -9,13 +10,7 @@ const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
 
     const dispatch = useDispatch()
 
-    const count = useSelector((state) =>
-        state.cartSlice.items
-            .filter((item) => item.id === id)
-            .reduce((sum, item) => {
-                return sum + item.count
-            }, 0)
-    )
+    const count = useSelector(selectCartGroupItems(id))
 
     const addToCart = () => {
         dispatch(
@@ -32,7 +27,9 @@ const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
 
     return (
         <div className={styles.card}>
-            <img src={imageUrl} alt="" />
+            <Link to={`/pizzas/${id}`}>
+                <img src={imageUrl} alt="" />
+            </Link>
             <h2>{title}</h2>
             <div className={styles.options}>
                 <ul>
